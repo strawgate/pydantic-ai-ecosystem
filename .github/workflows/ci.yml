@@ -57,3 +57,20 @@ jobs:
         env:
           PYDANTIC_AI_RUN_LOCALSTACK_MCP_TESTS: "1"
         run: uv run pytest tests/pydantic_ai_localstack -m integration
+
+  playwright-mcp-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install workspace dependencies
+        run: uv sync --all-packages --group dev --extra test
+      - name: Install Playwright Firefox browser
+        run: npx -y @playwright/mcp@latest install-browser firefox
+      - name: Run Playwright MCP smoke test
+        env:
+          PYDANTIC_AI_RUN_PLAYWRIGHT_MCP_TESTS: "1"
+        run: uv run pytest tests/pydantic_ai_playwright -m integration

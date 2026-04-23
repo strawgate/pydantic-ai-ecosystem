@@ -2,11 +2,15 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from dataclasses import dataclass
-from typing import ClassVar, cast
+from typing import TYPE_CHECKING, ClassVar, cast
 
 from pydantic_ai import Agent
 from pydantic_ai.tools import AgentDepsT
 from pydantic_ai_partner_mcp import MCPPartnerCapability, MCPPartnerConfig
+
+if TYPE_CHECKING:
+    from pydantic_ai.mcp import MCPServer
+    from pydantic_ai.toolsets.fastmcp import FastMCPToolset
 
 
 @dataclass(frozen=True)
@@ -27,8 +31,13 @@ class GitHubCapability(MCPPartnerCapability[AgentDepsT]):
         config: GitHubConfig | None = None,
         *,
         extra_instructions: tuple[str, ...] = (),
+        local_toolset: MCPServer | FastMCPToolset[AgentDepsT] | None = None,
     ) -> None:
-        super().__init__(config=config or GitHubConfig(), extra_instructions=extra_instructions)
+        super().__init__(
+            config=config or GitHubConfig(),
+            extra_instructions=extra_instructions,
+            local_toolset=local_toolset,
+        )
 
     @classmethod
     def config_from_mapping(cls, config: Mapping[str, object]) -> MCPPartnerConfig:

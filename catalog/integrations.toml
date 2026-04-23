@@ -25,7 +25,7 @@ ci_mode = "local_fixture"
 tool_test_level = "write_roundtrip"
 official_server = true
 strategic_fit = 4
-scaffold_present = false
+scaffold_present = true
 notes = ["Headless browser is CI-friendly", "Popular public MCP server"]
 
 [[integrations]]

@@ -43,6 +43,8 @@ pydantic-ai-ecosystem/
     │   └── pyproject.toml
     ├── pydantic_ai_partner_mcp/
     │   └── pyproject.toml
+    ├── pydantic_ai_playwright/
+    │   └── pyproject.toml
     ├── pydantic_ai_slack/
     │   └── pyproject.toml
     └── pydantic_ai_aws/
@@ -67,6 +69,7 @@ Examples:
 - `pydantic-ai-github` can depend on GitHub-oriented HTTP clients or MCP integrations
 - `pydantic-ai-logfire` can depend on Logfire directly
 - `pydantic-ai-partner-mcp` can provide shared MCP plumbing for lightweight partner packages
+- `pydantic-ai-playwright` can focus on browser automation defaults without dragging browser setup into unrelated packages
 - `pydantic-ai-slack` can depend on the Slack SDK
 
 That keeps install surfaces narrow and avoids dragging infrastructure-specific dependencies into unrelated packages.
@@ -92,6 +95,7 @@ Each package should publish to PyPI independently:
 - `pydantic-ai-localstack`
 - `pydantic-ai-logfire`
 - `pydantic-ai-partner-mcp`
+- `pydantic-ai-playwright`
 - `pydantic-ai-slack`
 
 The monorepo exists for shared tooling, docs, and release automation, not because the packages should move in lockstep.
@@ -106,6 +110,7 @@ The first wave of packages is intentionally narrow:
 - `pydantic-ai-logfire`: observability and tracing capability scaffolding
 - `pydantic-ai-notion`: generated from the shared partner template as the first fan-out-safe scaffold
 - `pydantic-ai-partner-mcp`: shared base for MCP-first partner packages
+- `pydantic-ai-playwright`: a highly testable browser-automation capability package
 - `pydantic-ai-slack`: Slack-facing capability scaffolding for collaboration workflows
 
 If this repo succeeds, `pydantic-ai-localstack` should become the clearest path for getting LocalStack recognized in the broader Pydantic AI ecosystem and, eventually, a candidate for Pydantic AI Harness.

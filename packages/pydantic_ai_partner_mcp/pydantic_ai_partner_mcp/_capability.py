@@ -2,11 +2,15 @@ from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
-from typing import Any, ClassVar, cast
+from typing import TYPE_CHECKING, Any, ClassVar, cast
 
 from pydantic_ai.capabilities import MCP, AbstractCapability
 from pydantic_ai.tools import AgentBuiltinTool, AgentDepsT
 from pydantic_ai.toolsets import AgentToolset
+
+if TYPE_CHECKING:
+    from pydantic_ai.mcp import MCPServer
+    from pydantic_ai.toolsets.fastmcp import FastMCPToolset
 
 
 def _empty_headers() -> dict[str, str]:
@@ -29,6 +33,7 @@ class MCPPartnerCapability(AbstractCapability[AgentDepsT]):
 
     config: MCPPartnerConfig = field(default_factory=MCPPartnerConfig)
     extra_instructions: tuple[str, ...] = ()
+    local_toolset: MCPServer | FastMCPToolset[AgentDepsT] | None = None
 
     partner_name: ClassVar[str] = 'Partner'
     readonly_by_default: ClassVar[bool] = True
@@ -99,6 +104,8 @@ class MCPPartnerCapability(AbstractCapability[AgentDepsT]):
             return None
         return MCP(
             self.config.url,
+            builtin=False if self.local_toolset is not None else True,
+            local=self.local_toolset,
             id=self.config.id,
             authorization_token=self.config.authorization_token,
             headers=self.config.headers or None,

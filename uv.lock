@@ -11,6 +11,7 @@ members = [
     "pydantic-ai-logfire",
     "pydantic-ai-notion",
     "pydantic-ai-partner-mcp",
+    "pydantic-ai-playwright",
     "pydantic-ai-slack",
 ]
 
@@ -1088,6 +1089,22 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [{ name = "pydantic-ai-slim", extras = ["mcp"], specifier = ">=1.18,<2" }]
+provides-extras = ["test"]
+
+[[package]]
+name = "pydantic-ai-playwright"
+version = "0.1.0"
+source = { editable = "packages/pydantic_ai_playwright" }
+dependencies = [
+    { name = "httpx" },
+    { name = "pydantic-ai-partner-mcp" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "httpx", specifier = ">=0.28" },
+    { name = "pydantic-ai-partner-mcp", editable = "packages/pydantic_ai_partner_mcp" },
+]
 provides-extras = ["test"]
 
 [[package]]
