@@ -1,0 +1,29 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pydantic-ai-partner-mcp"
+version = "0.1.0"
+description = "Shared MCP partner capability foundation for Pydantic AI ecosystem packages."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+  { name = "Pydantic AI Ecosystem" },
+]
+dependencies = [
+  "pydantic-ai-slim[mcp]>=1.18,<2",
+]
+
+[project.optional-dependencies]
+test = []
+
+[project.urls]
+Homepage = "https://github.com/strawgate/pydantic-ai-ecosystem"
+Documentation = "https://github.com/strawgate/pydantic-ai-ecosystem"
+Repository = "https://github.com/strawgate/pydantic-ai-ecosystem"
+Issues = "https://github.com/strawgate/pydantic-ai-ecosystem/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["pydantic_ai_partner_mcp"]

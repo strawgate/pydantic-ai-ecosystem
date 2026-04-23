@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: ["main"]
+
+jobs:
+  build-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - id: matrix
+        name: Build package test matrix
+        run: echo "matrix=$(uv run python -m scripts.ci_matrix)" >> "$GITHUB_OUTPUT"
+
+  shared-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Install dev dependencies
+        run: uv sync --all-packages --group dev
+      - name: Ruff
+        run: uv run ruff check .
+      - name: Pyright
+        run: uv run pyright
+
+  package-tests:
+    needs: build-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.build-matrix.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Install workspace dependencies
+        run: uv sync --all-packages --group dev --extra test
+      - name: Run package tests
+        run: uv run pytest "${{ matrix.test_dir }}" -m "not integration"
+
+  localstack-mcp-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install workspace dependencies
+        run: uv sync --all-packages --group dev --extra test
+      - name: Run LocalStack MCP smoke test
+        env:
+          PYDANTIC_AI_RUN_LOCALSTACK_MCP_TESTS: "1"
+        run: uv run pytest tests/pydantic_ai_localstack -m integration

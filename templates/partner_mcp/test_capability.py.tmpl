@@ -1,0 +1,38 @@
+from __future__ import annotations
+
+from pydantic_ai import Agent
+from {{ import_name }} import {{ capability_class_name }}, {{ config_class_name }}, {{ factory_function_name }}
+
+
+def test_{{ slug }}_capability_instructions_reflect_workspace_and_write_policy() -> None:
+    capability = {{ capability_class_name }}(
+        config={{ config_class_name }}(workspace_name='Team Workspace', allow_writes=False)
+    )
+    instructions = capability.get_instructions()
+    assert 'Team Workspace' in instructions
+    assert '{{ display_name }} write operations as opt-in' in instructions
+
+
+def test_{{ slug }}_capability_is_spec_friendly() -> None:
+    agent = Agent.from_spec(
+        {
+            'model': 'test',
+            'capabilities': [
+                {
+                    '{{ capability_class_name }}': {
+                        'config': {
+                            'workspace_name': 'Team Workspace',
+                            'allow_writes': True,
+                        }
+                    }
+                }
+            ],
+        },
+        custom_capability_types=[{{ capability_class_name }}],
+    )
+    assert agent.model is not None
+
+
+def test_{{ factory_function_name }}_is_import_safe() -> None:
+    agent = {{ factory_function_name }}(model='test')
+    assert agent.model is not None

@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pydantic-ai-github"
+version = "0.1.0"
+description = "GitHub capability integrations for Pydantic AI."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+  { name = "Pydantic AI Ecosystem" },
+]
+dependencies = [
+  "httpx>=0.28",
+  "pydantic-ai-partner-mcp>=0.1,<1",
+]
+
+[project.optional-dependencies]
+test = []
+
+[project.urls]
+Homepage = "https://github.com/strawgate/pydantic-ai-ecosystem"
+Documentation = "https://github.com/strawgate/pydantic-ai-ecosystem"
+Repository = "https://github.com/strawgate/pydantic-ai-ecosystem"
+Issues = "https://github.com/strawgate/pydantic-ai-ecosystem/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["pydantic_ai_github"]
+
+[tool.uv.sources]
+pydantic-ai-partner-mcp = { workspace = true }

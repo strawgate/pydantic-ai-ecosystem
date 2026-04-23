@@ -1,0 +1,309 @@
+catalog_version = 1
+
+[[integrations]]
+name = "localstack"
+package_name = "pydantic-ai-localstack"
+kind = "partner"
+implementation = "opinionated_capability"
+transport = "mcp"
+auth_mode = "local"
+ci_mode = "local_fixture"
+tool_test_level = "write_roundtrip"
+official_server = true
+strategic_fit = 5
+scaffold_present = true
+notes = ["Pinned Docker image available", "Real isolated roundtrip is realistic in CI"]
+
+[[integrations]]
+name = "playwright"
+package_name = "pydantic-ai-playwright"
+kind = "partner"
+implementation = "mcp_baseline"
+transport = "mcp"
+auth_mode = "none"
+ci_mode = "local_fixture"
+tool_test_level = "write_roundtrip"
+official_server = true
+strategic_fit = 4
+scaffold_present = false
+notes = ["Headless browser is CI-friendly", "Popular public MCP server"]
+
+[[integrations]]
+name = "logfire"
+package_name = "pydantic-ai-logfire"
+kind = "partner"
+implementation = "opinionated_capability"
+transport = "mcp"
+auth_mode = "service_token"
+ci_mode = "service_token"
+tool_test_level = "read_roundtrip"
+official_server = true
+strategic_fit = 5
+scaffold_present = true
+notes = ["Pydantic-owned surface", "Strong prompt defaults likely matter"]
+
+[[integrations]]
+name = "github"
+package_name = "pydantic-ai-github"
+kind = "partner"
+implementation = "opinionated_capability"
+transport = "mcp"
+auth_mode = "service_token"
+ci_mode = "service_token"
+tool_test_level = "read_roundtrip"
+official_server = true
+strategic_fit = 5
+scaffold_present = true
+notes = ["Read-only workflows can be tested with machine credentials", "Popular public MCP target"]
+
+[[integrations]]
+name = "notion"
+package_name = "pydantic-ai-notion"
+kind = "partner"
+implementation = "opinionated_capability"
+transport = "mcp"
+auth_mode = "service_token"
+ci_mode = "service_token"
+tool_test_level = "read_roundtrip"
+official_server = true
+strategic_fit = 4
+scaffold_present = true
+notes = ["Integration tokens avoid full OAuth", "Good fit for read-first workflows"]
+
+[[integrations]]
+name = "sentry"
+package_name = "pydantic-ai-sentry"
+kind = "partner"
+implementation = "opinionated_capability"
+transport = "mcp"
+auth_mode = "service_token"
+ci_mode = "service_token"
+tool_test_level = "read_roundtrip"
+official_server = false
+strategic_fit = 4
+scaffold_present = false
+notes = ["Observability workflow fits capability layer", "Mostly read-oriented"]
+
+[[integrations]]
+name = "linear"
+package_name = "pydantic-ai-linear"
+kind = "partner"
+implementation = "opinionated_capability"
+transport = "mcp"
+auth_mode = "service_token"
+ci_mode = "service_token"
+tool_test_level = "read_roundtrip"
+official_server = false
+strategic_fit = 4
+scaffold_present = false
+notes = ["Issue-management workflow benefits from prompts and safety"]
+
+[[integrations]]
+name = "slack"
+package_name = "pydantic-ai-slack"
+kind = "partner"
+implementation = "opinionated_capability"
+transport = "mcp"
+auth_mode = "service_token"
+ci_mode = "service_token"
+tool_test_level = "read_roundtrip"
+official_server = false
+strategic_fit = 4
+scaffold_present = true
+notes = ["Bot-token automation is possible", "Threading conventions are capability-shaped"]
+
+[[integrations]]
+name = "cloudflare"
+package_name = "pydantic-ai-cloudflare"
+kind = "partner"
+implementation = "opinionated_capability"
+transport = "mcp"
+auth_mode = "service_token"
+ci_mode = "service_token"
+tool_test_level = "read_roundtrip"
+official_server = false
+strategic_fit = 4
+scaffold_present = false
+notes = ["Infra workflows benefit from approval defaults"]
+
+[[integrations]]
+name = "vercel"
+package_name = "pydantic-ai-vercel"
+kind = "partner"
+implementation = "opinionated_capability"
+transport = "mcp"
+auth_mode = "service_token"
+ci_mode = "service_token"
+tool_test_level = "read_roundtrip"
+official_server = false
+strategic_fit = 4
+scaffold_present = false
+notes = ["Deployment and logs are a good fit for read-first tests"]
+
+[[integrations]]
+name = "stripe"
+package_name = "pydantic-ai-stripe"
+kind = "partner"
+implementation = "opinionated_capability"
+transport = "mcp"
+auth_mode = "service_token"
+ci_mode = "service_token"
+tool_test_level = "write_roundtrip"
+official_server = false
+strategic_fit = 4
+scaffold_present = false
+notes = ["Test mode supports safe write roundtrips", "Needs stronger safety defaults"]
+
+[[integrations]]
+name = "posthog"
+package_name = "pydantic-ai-posthog"
+kind = "partner"
+implementation = "opinionated_capability"
+transport = "mcp"
+auth_mode = "service_token"
+ci_mode = "service_token"
+tool_test_level = "read_roundtrip"
+official_server = false
+strategic_fit = 3
+scaffold_present = false
+notes = ["Good analytics/observability fit", "Mostly read-first"]
+
+[[integrations]]
+name = "aws"
+package_name = "pydantic-ai-aws"
+kind = "partner"
+implementation = "opinionated_capability"
+transport = "mcp"
+auth_mode = "service_token"
+ci_mode = "service_token"
+tool_test_level = "read_roundtrip"
+official_server = true
+strategic_fit = 3
+scaffold_present = true
+notes = ["Broad surface but harder to keep focused", "LocalStack remains the safer first path"]
+
+[[integrations]]
+name = "context7"
+package_name = "pydantic-ai-context7"
+kind = "generic_mcp"
+implementation = "mcp_baseline"
+transport = "mcp"
+auth_mode = "none"
+ci_mode = "public_read_only"
+tool_test_level = "read_roundtrip"
+official_server = true
+strategic_fit = 3
+scaffold_present = false
+notes = ["Very testable", "More generic utility than partner capability"]
+
+[[integrations]]
+name = "filesystem"
+package_name = "pydantic-ai-filesystem"
+kind = "generic_mcp"
+implementation = "mcp_baseline"
+transport = "mcp"
+auth_mode = "none"
+ci_mode = "local_fixture"
+tool_test_level = "write_roundtrip"
+official_server = true
+strategic_fit = 2
+scaffold_present = false
+notes = ["Extremely testable", "Probably belongs in docs/examples more than as a partner package"]
+
+[[integrations]]
+name = "brave-search"
+package_name = "pydantic-ai-brave-search"
+kind = "generic_mcp"
+implementation = "mcp_baseline"
+transport = "mcp"
+auth_mode = "service_token"
+ci_mode = "service_token"
+tool_test_level = "read_roundtrip"
+official_server = true
+strategic_fit = 2
+scaffold_present = false
+notes = ["Popular MCP target", "More utility package than partner ecosystem anchor"]
+
+[[integrations]]
+name = "gmail"
+package_name = "pydantic-ai-gmail"
+kind = "partner"
+implementation = "opinionated_capability"
+transport = "mcp"
+auth_mode = "oauth_user"
+ci_mode = "oauth_sandbox"
+tool_test_level = "read_roundtrip"
+official_server = false
+strategic_fit = 3
+scaffold_present = false
+notes = ["High demand", "Interactive auth makes first-wave adoption harder"]
+
+[[integrations]]
+name = "google-drive"
+package_name = "pydantic-ai-google-drive"
+kind = "partner"
+implementation = "opinionated_capability"
+transport = "mcp"
+auth_mode = "oauth_user"
+ci_mode = "oauth_sandbox"
+tool_test_level = "read_roundtrip"
+official_server = false
+strategic_fit = 3
+scaffold_present = false
+notes = ["Strong utility", "OAuth burden pushes it out of wave 1"]
+
+[[integrations]]
+name = "jira"
+package_name = "pydantic-ai-jira"
+kind = "partner"
+implementation = "opinionated_capability"
+transport = "mcp"
+auth_mode = "service_token"
+ci_mode = "service_token"
+tool_test_level = "read_roundtrip"
+official_server = false
+strategic_fit = 3
+scaffold_present = false
+notes = ["Clear workflow value", "Enterprise setup is still manageable in CI"]
+
+[[integrations]]
+name = "zendesk"
+package_name = "pydantic-ai-zendesk"
+kind = "partner"
+implementation = "opinionated_capability"
+transport = "mcp"
+auth_mode = "service_token"
+ci_mode = "service_token"
+tool_test_level = "read_roundtrip"
+official_server = false
+strategic_fit = 3
+scaffold_present = false
+notes = ["Support workflows fit capability semantics"]
+
+[[integrations]]
+name = "salesforce"
+package_name = "pydantic-ai-salesforce"
+kind = "partner"
+implementation = "opinionated_capability"
+transport = "mcp"
+auth_mode = "oauth_user"
+ci_mode = "manual_only"
+tool_test_level = "spec_only"
+official_server = false
+strategic_fit = 3
+scaffold_present = false
+notes = ["High-value domain", "Not a first-wave package because of auth and test burden"]
+
+[[integrations]]
+name = "hubspot"
+package_name = "pydantic-ai-hubspot"
+kind = "partner"
+implementation = "opinionated_capability"
+transport = "mcp"
+auth_mode = "oauth_user"
+ci_mode = "manual_only"
+tool_test_level = "spec_only"
+official_server = false
+strategic_fit = 3
+scaffold_present = false
+notes = ["Similar story to Salesforce", "Needs a better non-interactive auth story first"]
